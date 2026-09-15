@@ -3,7 +3,7 @@ WEEKS
 Monday
 Tuesday
 Wednesday
-Thursday
+Thursday Thursday
 Friday
-Saturday
+Saturday Saturday
 Sunday
