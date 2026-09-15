@@ -3,3 +3,5 @@ WEEKS
 Monday
 Tuesday
 Wednesday
+Thursday
+Friday
