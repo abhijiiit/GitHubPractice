@@ -1,0 +1,9 @@
+trigger:
+- develop
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo "Hello from Azure DevOps"
+  displayName: "Demo"
