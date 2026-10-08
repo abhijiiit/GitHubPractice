@@ -1,0 +1,38 @@
+trigger:
+- develop
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - script: echo "Build completed"
+      displayName: "Build Step"
+
+- stage: Test
+  dependsOn: Build
+  jobs:
+  - job: TestJob
+    steps:
+    - script: echo "Tests passed"
+      displayName: "Test Step"
+
+- stage: Publish
+  dependsOn: Test
+  jobs:
+  - job: PublishJob
+    steps:
+    - script: echo "Publish completed"
+      displayName: "Publish Step"
+
+- stage: Deploy_Demo
+  dependsOn: Publish
+  jobs:
+  - job: DeployJob
+    steps:
+    - script: echo "Demo deployment completed"
+      displayName: "Deploy Step"
