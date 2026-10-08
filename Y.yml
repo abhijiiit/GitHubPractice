@@ -6,33 +6,59 @@ pool:
 
 stages:
 
+# ---------------- CI WORKFLOW ----------------
+
 - stage: Build
+  displayName: "CI - Build"
   jobs:
   - job: BuildJob
     steps:
     - script: echo "Build completed"
-      displayName: "Build Step"
+      displayName: "Build"
 
 - stage: Test
+  displayName: "CI - Test"
   dependsOn: Build
   jobs:
   - job: TestJob
     steps:
     - script: echo "Tests passed"
-      displayName: "Test Step"
+      displayName: "Test"
 
 - stage: Publish
+  displayName: "CI - Publish Artifact"
   dependsOn: Test
   jobs:
   - job: PublishJob
     steps:
-    - script: echo "Publish completed"
-      displayName: "Publish Step"
+    - script: echo "Artifact ready"
+      displayName: "Publish"
 
-- stage: Deploy_Demo
+# ---------------- CD WORKFLOW ----------------
+
+- stage: Deploy_DEV
+  displayName: "CD - Deploy DEV"
   dependsOn: Publish
   jobs:
-  - job: DeployJob
+  - job: DeployDevJob
     steps:
-    - script: echo "Demo deployment completed"
-      displayName: "Deploy Step"
+    - script: echo "Deployed to DEV"
+      displayName: "Deploy DEV"
+
+- stage: Deploy_UAT
+  displayName: "CD - Deploy UAT"
+  dependsOn: Deploy_DEV
+  jobs:
+  - job: DeployUatJob
+    steps:
+    - script: echo "Deployed to UAT"
+      displayName: "Deploy UAT"
+
+- stage: Deploy_PROD
+  displayName: "CD - Deploy PROD"
+  dependsOn: Deploy_UAT
+  jobs:
+  - job: DeployProdJob
+    steps:
+    - script: echo "Deployed to PROD"
+      displayName: "Deploy PROD"
