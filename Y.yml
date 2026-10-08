@@ -109,5 +109,18 @@ variables:
   value: 'Hello from pipeline variables'
 
 
+parameters:
+- name: message
+  type: string
+  default: 'Build running from template'
+
+steps:
+- script: |
+    echo "${{ parameters.message }}"
+    echo "Configuration: $(BuildConfiguration)"
+    echo "Variable group value: $(CompanyEnvironment)"
+  displayName: "Template Build Step"
+
+
 
         
