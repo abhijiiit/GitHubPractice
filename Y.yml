@@ -62,3 +62,19 @@ stages:
     steps:
     - script: echo "Deployed to PROD"
       displayName: "Deploy PROD"
+
+- stage: Final_Status
+  displayName: "Final Status"
+  dependsOn:
+  - Build
+  - Test
+  - Publish
+  - Deploy_DEV
+  - Deploy_UAT
+  - Deploy_PROD
+  condition: always()
+  jobs:
+  - job: FinalStatusJob
+    steps:
+    - script: echo "Pipeline execution finished"
+      displayName: "Final Status"
