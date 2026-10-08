@@ -94,4 +94,20 @@ stages:
       displayName: "Publish Demo Artifact"
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)/output'
-        artifact: 'demo-artifact'
+        artifact: 'demo-artifac
+
+variables:
+- group: demo-variable-group
+
+- name: BuildConfiguration
+  value: 'Release'
+
+- name: EnvironmentName
+  value: 'Demo'
+
+- name: DemoMessage
+  value: 'Hello from pipeline variables'
+
+
+
+        
