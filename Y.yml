@@ -7,3 +7,44 @@ pool:
 stages:
 
 # ---------------- CI WORKFLOW ----------------
+
+trigger:
+  branches:
+    include:
+      - DevOps_feature_Branch
+
+pr: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: CheckAndRun
+  displayName: 'Check folder and run tasks'
+  steps:
+  - checkout: self
+
+  - bash: |
+      if [ -d "Test_folder" ]; then
+        echo "Test_folder exists. Skipping main tasks."
+        echo "##vso[task.setvariable variable=skipTasks]true"
+      else
+        echo "Test_folder does not exist."
+        echo "##vso[task.setvariable variable=skipTasks]false"
+      fi
+    displayName: 'Check Test_folder'
+
+  - bash: |
+      echo "Current date and time:"
+      date
+
+      echo "Agent details:"
+      echo "Agent Name: $(Agent.Name)"
+      echo "Agent OS: $(Agent.OS)"
+      echo "Agent Machine: $(Agent.MachineName)"
+
+      echo "Repository Name: $(Build.Repository.Name)"
+      echo "Branch Name: $(Build.SourceBranchName)"
+      echo "Full Branch Ref: $(Build.SourceBranch)"
+    displayName: 'Print pipeline information'
+    condition: and(succeeded(), eq(variables['skipTasks'], 'false'))
