@@ -1,1 +1,17 @@
-created something 
+Below are 2 ADO pipelines I want you both to create by yourself separately with the requirements I mentioned below and will have connect on Wednesday with you both
+ 
+1) Create YAML ADO pipeline with below:
+Pipeline should trigger only when feature branch with name DevOps_feature_Branch has any changes.
+Pipeline should not trigger on branch DevOps_feature_Branch if that branch has a folder named  Test_folder (That means if that branch does not have the Test folder then it should trigger if its having the folder named Test_folder it should skip the pipeline trigger)
+Print current date/time.
+Print agent details on which pipeline is running.
+Display repository name and branch name which is currently checked out for that pipeline run.
+ 
+ 
+2) Create YAML ADO pipeline with parameter called Environment and keep its default value as Dev and other values as DEV, ITG, PROD, Pre-Prod and while executing pipeline we should be able to see default value is selected as Dev but we should be able to select any other environment from the list DEV,ITG,PROD,Pre-Prod and when pipeline executes in log it should print based on selected environment like
+ 
+Deploying to DEV OR
+Deploying to ITG OR
+Deploying to PROD
+ 
+Example : if we select ITG as value of that Environment parameter then in logs of pipeline it should print Deploying to ITG
