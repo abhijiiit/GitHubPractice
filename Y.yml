@@ -6,6 +6,31 @@ pool:
 
 stages:
 
+
+trigger: none
+pr: none
+
+parameters:
+- name: Environment
+  displayName: 'Environment'
+  type: string
+  default: 'Dev'
+  values:
+    - Dev
+    - DEV
+    - ITG
+    - PROD
+    - Pre-Prod
+
+pool:
+  name: 'codeway-aws-linux2023'
+
+steps:
+- bash: |
+    echo "Deploying to ${{ parameters.Environment }}"
+  displayName: 'Display selected environment'
+
+
 # ---------------- CI WORKFLOW ----------------
 
 trigger:
@@ -47,4 +72,5 @@ jobs:
       echo "Branch Name: $(Build.SourceBranchName)"
       echo "Full Branch Ref: $(Build.SourceBranch)"
     displayName: 'Print pipeline information'
-    condition: and(succeeded(), eq(variables['skipTasks'], 'false'))
+    condition: and(succeeded(), eq(variables['skipTasks'
+    ], 'false'))
