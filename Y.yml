@@ -7,6 +7,21 @@ pool:
 stages:
 
 
+      - name: Trigger Azure DevOps Pipeline
+        if: steps.folder_check.outputs.trigger_ado == 'true'
+        shell: bash
+        env:
+          AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+        run: |
+          curl --fail-with-body --show-error --silent \
+            --request POST \
+            --user ":$AZURE_DEVOPS_PAT" \
+            --header "Content-Type: application/json" \
+            --data "{\"resources\":{\"repositories\":{\"self\":{\"refName\":\"refs/heads/${GITHUB_REF_NAME}\"}}}}" \
+            "https://dev.azure.com/abhijitCICD/My%20CICD/_apis/pipelines/1/runs?api-version=7.1"
+
+
+
 trigger: none
 pr: none
 
